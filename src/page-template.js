@@ -1,4 +1,23 @@
+// const generateManager = () => {
+//     return `
+//     <div class="col-4 mt-4">
+//         <div class="card h-100">
+//             <div class="card-header">
+//                 <h3>${Manager.name}</h3>
+//                 <h4>Manager</h4><i class="material-icons">content_paste</i>
+//             </div>
+//             <div class="card-body">
+//                 <p class="id">ID: ${Manager.employeeId}</p>
+//                 <p class="email">Email: <a href="mailto:${Manager.email}">${Manager.email}</a></p>
+//                 <p class="office">Office Number: ${Manager.office}</p>
+//             </div>
+//         </div>
+//     </div>
+//     `;
+// };
 
+module.exports = teamArr => {
+    return `
     <!DOCTYPE html>
     <html lang="en">
   
@@ -21,11 +40,12 @@
         </div>
       </header>
       <main class="container my-5">
-            f;
+            ${teamArr[0]['name']}
       </main>
       <footer class="container text-center py-3">
         <h3 class="text-dark">&copy; </h3>
       </footer>
     </body>
     </html>
-    
+    `;
+};

@@ -1,7 +1,11 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
+const generateHtml =  require('./src/page-template');
+
+let teamArr = [];
 
 const promptManager = () => {
     return inquirer.prompt([
@@ -28,7 +32,8 @@ const promptManager = () => {
     ])
     .then(data => {
         const manager = new Manager(data.name, data.employeeId, data.email, data.office);
-        console.log(manager);
+        teamArr.push(manager);
+        console.log(teamArr);
     });
 };
 
@@ -57,7 +62,9 @@ const promptEngineer = () => {
         ])
         .then(data => {
             const engineer = new Engineer(data.name, data.id, data.email, data.github);
-            console.log(engineer);
+            teamArr.push(engineer);
+            console.log('Engineer added!');
+            promptTeam();
         });
 };
 
@@ -86,14 +93,13 @@ const promptIntern = () => {
     ])
     .then(data => {
         const intern = new Intern(data.name, data.id, data.email, data.school);
-        console.log(intern);
+        teamArr.push(intern);
+        console.log('Intern added!');
+        promptTeam();
     })
 };
 
-const promptTeam = teamData => {
-    if (!teamData) {
-        teamData = [];
-    }
+const promptTeam = () => {
     return inquirer.prompt(
         {
             type: 'list',
@@ -107,10 +113,27 @@ const promptTeam = teamData => {
             } else if(team === 'Add an Intern') {
                 promptIntern();
             } else{
-
-            }
+                return teamArr;
+            };
         });
 }
 
+const writeFile = data => {
+    fs.writeFile('./dist/index.html', data, err => {
+        if (err) {
+            console.log(err);
+            return;
+        } else{
+            console.log("Your team has been created!");
+        }
+    })
+}
+
 promptManager()
-    .then(promptTeam);
+    .then(promptTeam)
+    .then(teamArr => {
+        return generateHtml(teamArr);
+    })
+    .then(pageHtml => {
+        return writeFile(pageHtml);
+    });
