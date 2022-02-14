@@ -7,6 +7,7 @@ const generateHtml =  require('./src/page-template');
 
 let teamArr = [];
 
+// prompt manager information
 const promptManager = () => {
     return inquirer.prompt([
         {
@@ -36,7 +37,7 @@ const promptManager = () => {
         console.log(teamArr);
     });
 };
-
+// prompt engineer
 const promptEngineer = () => {
         return inquirer.prompt([
             {
@@ -67,7 +68,7 @@ const promptEngineer = () => {
             return promptTeam();
         });
 };
-
+// prompt intern
 const promptIntern = () => {
     return inquirer.prompt([
         {
@@ -98,7 +99,7 @@ const promptIntern = () => {
         return promptTeam();
     })
 };
-
+// prompt for team members
 const promptTeam = () => {
     return inquirer.prompt(
         {

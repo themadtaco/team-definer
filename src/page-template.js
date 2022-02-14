@@ -72,6 +72,7 @@ module.exports = teamArr => {
   let engineers = [];
 
 
+  // loops through team array and seperates them by role into seperate arrays
   teamArr.forEach(element => {
     const role = element.getRole();
     console.log(role);
