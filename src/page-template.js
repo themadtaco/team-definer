@@ -1,3 +1,7 @@
+const Engineer = require('../lib/Engineer');
+const Manager = require('../lib/Manager');
+const Intern = require('../lib/Intern');
+
 // const generateManager = () => {
 //     return `
 //     <div class="col-4 mt-4">
@@ -17,6 +21,15 @@
 // };
 
 module.exports = teamArr => {
+
+  teamArr.forEach(element => {
+    const role = element.getRole();
+    console.log(role);
+
+    if (role === 'Manager') {
+      
+    }
+  });
     return `
     <!DOCTYPE html>
     <html lang="en">

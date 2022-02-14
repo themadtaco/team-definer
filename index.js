@@ -64,7 +64,7 @@ const promptEngineer = () => {
             const engineer = new Engineer(data.name, data.id, data.email, data.github);
             teamArr.push(engineer);
             console.log('Engineer added!');
-            promptTeam();
+            return promptTeam();
         });
 };
 
@@ -95,7 +95,7 @@ const promptIntern = () => {
         const intern = new Intern(data.name, data.id, data.email, data.school);
         teamArr.push(intern);
         console.log('Intern added!');
-        promptTeam();
+        return promptTeam();
     })
 };
 
@@ -109,9 +109,9 @@ const promptTeam = () => {
         })
         .then(({ team }) => {
             if(team === 'Add an Engineer') {
-                promptEngineer();
+                return promptEngineer();
             } else if(team === 'Add an Intern') {
-                promptIntern();
+                return promptIntern();
             } else{
                 return teamArr;
             };
