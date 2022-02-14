@@ -2,63 +2,125 @@ const Engineer = require('../lib/Engineer');
 const Manager = require('../lib/Manager');
 const Intern = require('../lib/Intern');
 
-// const generateManager = () => {
-//     return `
-//     <div class="col-4 mt-4">
-//         <div class="card h-100">
-//             <div class="card-header">
-//                 <h3>${Manager.name}</h3>
-//                 <h4>Manager</h4><i class="material-icons">content_paste</i>
-//             </div>
-//             <div class="card-body">
-//                 <p class="id">ID: ${Manager.employeeId}</p>
-//                 <p class="email">Email: <a href="mailto:${Manager.email}">${Manager.email}</a></p>
-//                 <p class="office">Office Number: ${Manager.office}</p>
-//             </div>
-//         </div>
-//     </div>
-//     `;
-// };
+const generateManager = (manager) => {
+    return `
+      <div class="column">
+        <div class="card">
+          <header class="card-header is-dark">
+            <p class="card-header-title">
+              Manager - ${manager.getName()}
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              Id: ${manager.getId()}<br>
+              Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a><br>
+              Office: ${manager.getOffice()}<br>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+};
+
+const generateEngineer = (engineer) => {
+  return `
+  <div class="column">
+    <div class="card">
+      <header class="card-header is-primary">
+        <p class="card-header-title">
+          Engineer - ${engineer.getName()}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          Id: ${engineer.getId()}<br>
+          Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a><br>
+          Github: <a href="https://github.com/${engineer.getGithub()}">${engineer.getGithub()}</a><br>
+        </div>
+      </div>
+    </div>
+  </div>
+    `;
+};
+
+const generateIntern = (intern) => {
+  return `
+      <div class="column">
+        <div class="card">
+          <header class="card-header is-primary">
+            <p class="card-header-title">
+              Intern - ${intern.getName()}
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              Id: ${intern.getId()}<br>
+              Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a><br>
+              School: ${intern.getSchool()}<br>
+            </div>
+          </div>
+        </div>
+      </div>
+  `;
+};
 
 module.exports = teamArr => {
+
+  let managers = [];
+  let interns = [];
+  let engineers = [];
+
 
   teamArr.forEach(element => {
     const role = element.getRole();
     console.log(role);
 
     if (role === 'Manager') {
-      
+      const manager =  generateManager(element);
+      managers.push(manager);
+    } else if(role === 'Intern') {
+      const intern = generateIntern(element);
+      interns.push(intern);
+    } else {
+      const engineer = generateEngineer(element);
+      engineers.push(engineer);
     }
   });
     return `
     <!DOCTYPE html>
-    <html lang="en">
-  
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Portfolio Demo</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="style.css">
-    </head>
-  
-    <body>
-      <header>
-        <div class="container flex-row justify-space-between align-center py-3">
-          <h1 class="page-title text-secondary bg-dark py-2 px-3"></h1>
-          <nav class="flex-row">
-          </nav>
-        </div>
-      </header>
-      <main class="container my-5">
-            ${teamArr[0]['name']}
-      </main>
-      <footer class="container text-center py-3">
-        <h3 class="text-dark">&copy; </h3>
-      </footer>
-    </body>
-    </html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Team Has Arrived!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <h1 class="title">Meet Your Team!</h1>
+        </a>
+    
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+
+  <section class="section">
+    <div class="columns">
+      ${managers}
+      ${interns.join('')}
+      ${engineers.join('')}
+    </div>
+  </section>
+  </body>
+</html>
     `;
 };
